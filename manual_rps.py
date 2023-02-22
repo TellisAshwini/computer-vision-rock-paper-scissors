@@ -1,7 +1,7 @@
 import random
 
 def get_computer_choice():
-    choice_list = ["Rock", "Paper", "Scissors"]
+    choice_list = ["rock", "paper", "scissors"]
     computer_choice = random.choice(choice_list)
     return computer_choice
     
@@ -15,11 +15,11 @@ user_choice = get_user_choice()
 
 def get_winner(computer_choice, user_choice ):
     print(computer_choice, user_choice)
-    if (computer_choice == 'Rock' and user_choice == 'Paper') or (computer_choice == 'Paper' and user_choice == 'Scissors')  or (computer_choice == 'Scissors' and user_choice == 'Rock'):
+    if (computer_choice == 'rock' and user_choice == 'paper') or (computer_choice == 'paper' and user_choice == 'scissors')  or (computer_choice == 'scissors' and user_choice == 'rock'):
         print("You won")
-    elif (user_choice == 'Rock' and computer_choice == 'Paper') or (user_choice == 'Paper' and computer_choice == 'Scissors')  or (user_choice == 'Scissors' and computer_choice == 'Rock'):
+    elif (user_choice == 'rock' and computer_choice == 'paper') or (user_choice == 'paper' and computer_choice == 'scissors')  or (user_choice == 'scissors' and computer_choice == 'rock'):
         print("You lost")
-    elif (user_choice == 'Rock' and computer_choice == 'Rock') or (user_choice == 'Paper' and computer_choice == 'Paper')  or (user_choice == 'Scissors' and computer_choice == 'Scissors'):
+    elif (user_choice == 'rock' and computer_choice == 'rock') or (user_choice == 'paper' and computer_choice == 'paper')  or (user_choice == 'scissors' and computer_choice == 'scissors'):
         print("It is a tie!")
 
 get_winner(computer_choice, user_choice)
