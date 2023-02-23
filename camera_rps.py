@@ -1,4 +1,5 @@
 import RPS_Template
+import cv2
 
 def get_prediction():
     user_choice_prediction = RPS_Template.prediction
