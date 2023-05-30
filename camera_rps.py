@@ -1,9 +1,10 @@
 import random
-import cv2 #creates a video capture object through webcam 
-from keras.models import load_model #loads the model
+import cv2 
+from keras.models import load_model
 import numpy as np 
 import time 
-from colorama import Fore #Adds colour to the print statements
+from colorama import Fore
+from art import *
 
 class RPS:
     def __init__(self):
@@ -12,24 +13,30 @@ class RPS:
         self.user_choice = ''
 
     def get_computer_choice(self):
-        #Chooses random element from the list 
+        '''
+        Attributes
+        ---------- 
+        choice_list       : list
+            List of all possible choices of hand gesture.
+        computer_choice   : str
+            Random element chosen by the computer from the choice_list
+        '''
         self.computer_choice = random.choice(self.choice_list[0:3])
         return self.computer_choice
 
     def get_prediction(self):
-        #predicts the output of the model
         model = load_model('keras_model.h5')
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(0) # #0 represents 'one' camera
         data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
         countdown = 3
         start_time = time.time()
         while True: 
-            ret, frame = cap.read()
+            ret, frame = cap.read()  # ret is boolean value capturing true or false, frame captures the array
             resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
             image_np = np.array(resized_frame)
             normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
             data[0] = normalized_image
-            prediction = model.predict(data, verbose = 0)       
+            prediction = model.predict(data, verbose = 0) #predicts the model 
             predicted_list = [prediction[0][0], prediction[0][1], prediction[0][2], prediction[0][3]]
             self.user_choice = self.choice_list[predicted_list.index(max(predicted_list))]
             mins, secs = divmod(round(3 - (time.time() - start_time)), 60) #gives a countdown as 3, 2, 1 
@@ -40,9 +47,8 @@ class RPS:
             image = cv2.putText(frame, 'You chose '+ self.user_choice, (150, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             image = cv2.putText(frame, 'Countdown: '+ timer, (180, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA)
             image = cv2.putText(frame, 'Press c to continue', (150, 470), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2, cv2.LINE_AA) 
-            cv2.imshow('frame', image)
-            # Press c to close the window
-            if cv2.waitKey(1) & 0xFF == ord('c'): 
+            cv2.imshow('frame', image) # shows the frame to capture image with the name, 'frame'
+            if cv2.waitKey(1) & 0xFF == ord('c'): # Press c to close the window
                 break
         
         cap.release() # After the loop release the cap object
@@ -50,13 +56,25 @@ class RPS:
         return self.user_choice
 
     def get_winner(self):
+        '''
+        Attributes:
+        -----------
+        win     : bool
+            Conditions for the user to win the round
+        tie     : bool
+            Condition for a tie
+
+        Checks for the condition and decides who wins each round
+            - If win is True then the user wins the round
+            - If tie is True then its a tie and the round is again repeated
+            - If the both the above conditions are false then conputer wins the game for that round
+        '''
         self.get_prediction()
         self.get_computer_choice()
         print(f'user choice: {self.user_choice}, computer choice: {self.computer_choice}')
         win = (self.computer_choice == 'Rock' and self.user_choice == 'Paper') or (self.computer_choice == 'Paper' and self.user_choice == 'Scissors') or (self.computer_choice == 'Scissors' and self.user_choice == 'Rock')
         tie = (self.user_choice == 'Rock' and self.computer_choice == 'Rock') or (self.user_choice == 'Paper' and self.computer_choice == 'Paper') or (self.user_choice == 'Scissors' and self.computer_choice == 'Scissors')
     
-        #checks foe each condition from user and computer
         if (self.user_choice == 'Nothing'):
             print(Fore.CYAN + 'Nothing was chosen please try again' + Fore.RESET)
         elif tie:
@@ -69,11 +87,26 @@ class RPS:
             return 'lose'
 
 def play():
-    #starts the game
+    '''
+    Attributes:
+    -----------
+    game_result     : str
+        Sets to 'lose' if computer wins, and sets to 'win' if user wins, in each round.
+    computer_wins   : int
+        Set to 0 initially and increments everytime the computer wins a round (game_result = 'lose')
+    user_wins       : int
+        Set to 0 initially and increments everytime the user wins a round (game_result = 'win')
+    Game continues until one of the 2 variables increments to 3
+        
+    Checks for the condition and decides who wins the game  
+        - If user_wins increments upto 3, then user wins the game
+        - If computer increments upto 3, then computer wins the game
+    '''
     game = RPS()
     computer_wins = 0 
     user_wins = 0
-    print(Fore.LIGHTCYAN_EX + "Welcome to the Rock-Paper-Scissors game\n")
+    print(Fore.LIGHTCYAN_EX + "Welcome to \n")
+    tprint("Rock-Paper-Scissors","rand-small")
     print("You will win the game if you win 3 rounds")
     print("Lets play.. !!\n\n" + Fore.RESET)
     while user_wins <= 3 or computer_wins <= 3:
@@ -91,4 +124,5 @@ def play():
         print(f'user_wins: {user_wins}, computer_wins: {computer_wins}')
 
 
-play()
+if __name__ == "__main__":
+    play()
