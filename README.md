@@ -6,12 +6,12 @@ A closed fist signifies a `rock` (✊). A flat hand signifies a `paper` (✋) an
  
 The game goes by this logic, the paper covers rock, scissors cuts paper and rock crushes scissors. Hence paper beats rock, scissors beat paper and rock beats scissors. 
 
-The user, start by saying aloud “Rock! Paper! Scissors!” and then make one of these 3 shapes in hand simultaneously. Using the above logic the winner is decided.
+The user, starts by saying aloud “Rock! Paper! Scissors!” and then make one of these 3 shapes in hand simultaneously. Using the above logic the winner is decided.
 
 <img src = "https://raw.githubusercontent.com/TellisAshwini/computer-vision-rock-paper-scissors/main/Images/1_aicore_rps.png" width = "550" height = "240" />
 
 Rock-Paper-Scissors project is a part of my training at AiCore. This project is build using computer vision where the user makes the hand gesture when the camera is on, and the computer randomly chooses between the `rock`, `paper` or `scissors` and these are compared to check if user wins or loses.  This game is played in 5 rounds and the user wins the game if the user wins at least in 3 rounds.
-## Milestone 1:
+> ## Milestone 1:
 
 Git is a distributed version control system that manages multiple versions of source code and record them into a repository. GitHub is the cloud-based platform used in this project. It serves as a location for uploading copies of a Git repository for collaboration.
 
@@ -23,7 +23,7 @@ Below are some basic commands that we frequently use in the bash terminal.
 - ```git add``` and ```git commit``` commands are frequently used to stage changes and commit them to the repository in the local machine.
 - ```git push``` command is used to push the committed changes in the  local repository to the GitHub repository.
 
-## Milestone 2:
+> ## Milestone 2:
 
 Teachable Machine (TM) is an AI experiment by Google. It is a web-based tool that makes it fast and easy to create machine learning models without any expertise or coding accessible to everyone.
 
@@ -34,18 +34,18 @@ Using the image project, four classes are created `rock`, `paper`, `scissor` and
 <img src = "https://raw.githubusercontent.com/TellisAshwini/computer-vision-rock-paper-scissors/main/Images/3_classes_teachable_machine_image.png" width = "550" height = "290" />
 
 
-Once the model is trained with the images, the model can be tested making one of the hand gestures and the output will be in terms of probability of the gesture being one those classes we created.
+Once the model is trained with the images, the model can be tested making one of the hand gestures and the output will be in terms of probability of the gesture being one those classes we created. Here we can see the output as `scissors` with 98% accuracy
 
 <img src = "https://raw.githubusercontent.com/TellisAshwini/computer-vision-rock-paper-scissors/main/Images/4_tm_scissors.png" width = "130" height = "200" />
 
  This model is then downloaded, and the files are saved as `keras_model.h5` and `labels.txt` in the repository.
 
-## Milestone 3:
+> ## Milestone 3:
  The required libraries for this project are installed `opencv-python`, `tensorflow`, and `ipykernel`.
 
  OpenCV is library lets you create a video capture object that is helpful to capture videos through webcam and then you may perform desired operations on that video. Tensorflow library helps to load the keras model `keras_model.h5`  and the IPython kernel is the Python execution backend for Jupyter.
 
- ## Milestone 4:
+ > ## Milestone 4:
 
  To understand the working of the game better we first code this game by user manually entering "rock", "paper" or "scissors" using the `input` function and then later replacing the manual input with the computer vision. 
  
@@ -66,11 +66,11 @@ def get_computer_choice():
     return computer_choice
 ```
 
-`get_winner` function takes in `computer_choice` and `user_choice` as its parameters and decides if the user wins or loses by comparing these variables using `if statemants` and prints a message saying 'You lose' or 'You win' or 'It's a tie' based on the conditions. The `play` function calls the `get_winner` function to start the game.
+`get_winner` function takes in `computer_choice` and `user_choice` as its parameters and decides if the user wins or loses by comparing these variables with the above logic of the game, using `if statemants` and prints a message saying 'You lose' or 'You win' or 'It's a tie' based on the conditions. The `play` function calls the `get_winner` function to start the game.
 
 <img src = "https://raw.githubusercontent.com/TellisAshwini/computer-vision-rock-paper-scissors/main/Images/5_manual_output.png" width = "250" height = "60" />
 
- ## Milestone 5:
+ > ## Milestone 5:
 
  Now the manual user input is replaced by computer vision by replacing the `user_choice` function by `get_prediction` function which loads the model and captures the gestures that user makes in front of the webcam and predicts the gesture using this model.
 
@@ -116,20 +116,18 @@ The game should be repeated until either the computer or the user wins three rou
 
  If the `user_wins` is equal to 3 then a message is displayed saying, congratulations! and if the `computer_wins` is equal to 3 then a message is displayed saying, you lost the game.
 
- ## Taking it even further
+ > ## Taking it even further
 
- To put everything together I have created a class `RPS` and the `play` function that is outside the class starts the game. `game` is an instance of `RPS` class `game` within this function.
-
- To highlight the messages in the console while printing the messages I imported `Fore` from `colorama`.
+ To highlight the messages in the console while printing, I have imported `Fore` from `colorama` and imported 'art' to get fancy fonts.
 
 
  <img src = "https://raw.githubusercontent.com/TellisAshwini/computer-vision-rock-paper-scissors/main/Images/8_colorama.png" width = "280" height = "250" />
 
-Text is added to the frame where the hand gestures are made to make it more user friendly. 
+Text is added to the frame where the hand gestures are made for better understanding and to make it more user friendly. 
 
 <img src = "https://raw.githubusercontent.com/TellisAshwini/computer-vision-rock-paper-scissors/main/Images/7_chose_rock.png" width = "220" height = "160" />
 
-Throughout the project it was a great learning experience for me. I would finally conclude saying that this project can be a great start for those who would like to understand computer vision concept in more depth. 
+Throughout the project it was a great learning experience all together. This project can be a great start for those who would like to understand computer vision concept and have fun experiments with it and dig deeper.
   
 
 
